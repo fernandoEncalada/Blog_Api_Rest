@@ -6,6 +6,7 @@ import com.blog.crudblogrestApi.entity.Publication;
 import com.blog.crudblogrestApi.exceptions.ResourceNotFoundException;
 import com.blog.crudblogrestApi.repository.PublicationRepository;
 import com.blog.crudblogrestApi.service.PublicationService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class PublicationServiceImpl implements PublicationService {
+
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Autowired
     private PublicationRepository publicationRepository;
 
@@ -84,23 +89,13 @@ public class PublicationServiceImpl implements PublicationService {
 
     // Convert entity to DTO
     private PublicationDTO mapperDTO(Publication publication){
-        PublicationDTO publicationDTO = new PublicationDTO();
-
-        publicationDTO.setId(publication.getId());
-        publicationDTO.setTitle(publication.getTitle());
-        publicationDTO.setDescription(publication.getDescription());
-        publicationDTO.setContent(publication.getContent());
-
+        PublicationDTO publicationDTO = modelMapper.map(publication, PublicationDTO.class);
         return publicationDTO;
     }
 
     // Convert dto to entity
     private Publication mapperEntity(PublicationDTO publicationDTO){
-        Publication publication = new Publication();
-
-        publication.setTitle(publicationDTO.getTitle());
-        publication.setDescription(publicationDTO.getDescription());
-        publication.setContent(publicationDTO.getContent());
+        Publication publication = modelMapper.map(publicationDTO, Publication.class);
 
         return publication;
     }

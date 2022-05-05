@@ -1,11 +1,16 @@
 package com.blog.crudblogrestApi.dto;
 
+import com.blog.crudblogrestApi.entity.Comment;
+
+import java.util.Set;
+
 public class PublicationDTO {
 
     private Long id;
     private String title;
     private String description;
     private String content;
+    private Set<Comment> comments;
 
     public PublicationDTO() {
         super();
@@ -41,5 +46,13 @@ public class PublicationDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }
