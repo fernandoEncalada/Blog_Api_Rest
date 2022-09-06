@@ -1,10 +1,22 @@
 package com.blog.crudblogrestApi.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class CommentDTO {
 
     private long id;
+
+    @NotEmpty(message = "The name cannot be empty")
     private String name;
+
+    @NotEmpty(message = "The email cannot be empty")
+    @Email
     private String email;
+
+    @NotEmpty
+    @Size(min = 10, message = "The content of the comment must have least 10 characters")
     private String content;
 
     public CommentDTO() {

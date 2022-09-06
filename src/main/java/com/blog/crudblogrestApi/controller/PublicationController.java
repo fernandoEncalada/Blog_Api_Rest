@@ -7,8 +7,10 @@ import com.blog.crudblogrestApi.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,8 +20,9 @@ public class PublicationController {
     @Autowired
     private PublicationService publicationService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<PublicationDTO> savePublication(@RequestBody PublicationDTO publicationDTO){
+    public ResponseEntity<PublicationDTO> savePublication(@Valid @RequestBody PublicationDTO publicationDTO){
         return new ResponseEntity<>(publicationService.createPublication(publicationDTO), HttpStatus.CREATED);
     }
 
@@ -38,12 +41,14 @@ public class PublicationController {
         return ResponseEntity.ok(publicationService.getPublicationById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<PublicationDTO> updatePublication(@RequestBody PublicationDTO publicationDTO, @PathVariable(name = "id") long id){
+    public ResponseEntity<PublicationDTO> updatePublication(@Valid @RequestBody PublicationDTO publicationDTO, @PathVariable(name = "id") long id){
         PublicationDTO publicationResponse = publicationService.updatePublication(publicationDTO, id);
         return new ResponseEntity<>(publicationResponse,HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePublication(@PathVariable(name= "id") long id){
         publicationService.deletePublication(id);
