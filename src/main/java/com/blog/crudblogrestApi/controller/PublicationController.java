@@ -20,7 +20,7 @@ public class PublicationController {
     @Autowired
     private PublicationService publicationService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PublicationDTO> savePublication(@Valid @RequestBody PublicationDTO publicationDTO){
         return new ResponseEntity<>(publicationService.createPublication(publicationDTO), HttpStatus.CREATED);
@@ -41,14 +41,14 @@ public class PublicationController {
         return ResponseEntity.ok(publicationService.getPublicationById(id));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<PublicationDTO> updatePublication(@Valid @RequestBody PublicationDTO publicationDTO, @PathVariable(name = "id") long id){
         PublicationDTO publicationResponse = publicationService.updatePublication(publicationDTO, id);
         return new ResponseEntity<>(publicationResponse,HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePublication(@PathVariable(name= "id") long id){
         publicationService.deletePublication(id);

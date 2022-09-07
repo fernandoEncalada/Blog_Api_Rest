@@ -3,7 +3,6 @@ package com.blog.crudblogrestApi.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +30,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
-    @JsonBackReference
+    //@JsonBackReference
     @OneToMany(mappedBy = "user")
     private Set<Publication> publications = new HashSet<>();
 

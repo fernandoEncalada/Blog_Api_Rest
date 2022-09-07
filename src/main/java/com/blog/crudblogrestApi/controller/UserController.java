@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user){
         User newUser = userService.createUser(user);
@@ -30,12 +31,21 @@ public class UserController {
     public ResponseEntity<List<User>> getUsers(){
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
-//    @GetMapping("/{id}")
-//    public ResponseEntity<PublicationDTO> getPublicationById(@PathVariable(name = "id") long id){
-//        return ResponseEntity.ok(publicationService.getPublicationById(id));
-//    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable(name = "id") Long id){
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable(name = "id") Long id){
+        User userResponse = userService.updateUser(user, id);
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable(name = "id") Long id){
+        userService.deleteUser(id);
+        return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
 }

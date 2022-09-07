@@ -24,7 +24,7 @@ public class Publication {
     private String content;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "publication")
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -40,6 +40,7 @@ public class Publication {
         this.title = title;
         this.description = description;
         this.content = content;
+
     }
 
     public Long getId() {
@@ -80,5 +81,13 @@ public class Publication {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
