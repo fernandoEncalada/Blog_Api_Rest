@@ -30,7 +30,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
-    //@JsonBackReference
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
     private Set<Publication> publications = new HashSet<>();
 

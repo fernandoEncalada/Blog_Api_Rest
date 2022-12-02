@@ -27,6 +27,7 @@ public class Publication {
     @OneToMany(mappedBy = "publication")
     private Set<Comment> comments = new HashSet<>();
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -35,12 +36,12 @@ public class Publication {
         super();
     }
 
-    public Publication(Long id, String title, String description, String content) {
+    public Publication(Long id, String title, String description, String content, User user) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.content = content;
-
+        this.user = user;
     }
 
     public Long getId() {

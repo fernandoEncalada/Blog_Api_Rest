@@ -3,8 +3,10 @@ package com.blog.crudblogrestApi.service.implementation;
 import com.blog.crudblogrestApi.dto.PublicationDTO;
 import com.blog.crudblogrestApi.dto.PublicationResponse;
 import com.blog.crudblogrestApi.entity.Publication;
+import com.blog.crudblogrestApi.entity.User;
 import com.blog.crudblogrestApi.exceptions.ResourceNotFoundException;
 import com.blog.crudblogrestApi.repository.PublicationRepository;
+import com.blog.crudblogrestApi.repository.UserRepository;
 import com.blog.crudblogrestApi.service.PublicationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,15 @@ public class PublicationServiceImpl implements PublicationService {
     @Autowired
     private PublicationRepository publicationRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public PublicationDTO createPublication(PublicationDTO publicationDTO) {
+    public PublicationDTO createPublication(Long userId, PublicationDTO publicationDTO) {
         // Convert dto to entity
         Publication publication = mapperEntity(publicationDTO);
+        User user = userRepository.findById(userId).orElse(null);
+        publication.setUser(user);
 
         Publication newPublication = publicationRepository.save(publication);
 

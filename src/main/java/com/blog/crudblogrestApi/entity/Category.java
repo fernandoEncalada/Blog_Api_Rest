@@ -15,9 +15,9 @@ public class Category {
     @Column(length = 20)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Set<Publication> publications = new HashSet<>();
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id")
+//    private Set<Publication> publications = new HashSet<>();
 
     public Category() {
     }
@@ -25,7 +25,7 @@ public class Category {
     public Category(Long id, String name, Set<Publication> publications) {
         this.id = id;
         this.name = name;
-        this.publications = publications;
+//        this.publications = publications;
     }
 
     public Long getId() {
@@ -44,11 +44,11 @@ public class Category {
         this.name = name;
     }
 
-    public Set<Publication> getPublications() {
-        return publications;
-    }
-
-    public void setPublications(Set<Publication> publications) {
-        this.publications = publications;
-    }
+//    public Set<Publication> getPublications() {
+//        return publications;
+//    }
+//
+//    public void setPublications(Set<Publication> publications) {
+//        this.publications = publications;
+//    }
 }

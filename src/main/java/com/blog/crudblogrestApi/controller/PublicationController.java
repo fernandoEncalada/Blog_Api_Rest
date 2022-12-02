@@ -21,9 +21,13 @@ public class PublicationController {
     private PublicationService publicationService;
 
 //    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
-    public ResponseEntity<PublicationDTO> savePublication(@Valid @RequestBody PublicationDTO publicationDTO){
-        return new ResponseEntity<>(publicationService.createPublication(publicationDTO), HttpStatus.CREATED);
+//@PostMapping("/publications/{publicationId}/comments")
+    @PostMapping("/{userId}")
+    public ResponseEntity<PublicationDTO> savePublication(
+            @PathVariable(name = "userId") long userId,
+            @Valid
+            @RequestBody PublicationDTO publicationDTO){
+        return new ResponseEntity<>(publicationService.createPublication(userId, publicationDTO), HttpStatus.CREATED);
     }
 
     @GetMapping

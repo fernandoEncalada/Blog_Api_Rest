@@ -23,6 +23,8 @@ public class PublicationDTO {
 
     private Set<Comment> comments;
 
+    private Long userId;
+
     public PublicationDTO() {
         super();
     }
@@ -65,5 +67,13 @@ public class PublicationDTO {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
