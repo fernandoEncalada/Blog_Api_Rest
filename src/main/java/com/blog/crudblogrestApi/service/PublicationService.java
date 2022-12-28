@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface PublicationService {
 
-    public PublicationDTO createPublication(Long userId, PublicationDTO publicationDTO);
+//    public PublicationDTO createPublication(Long userId, Long categoryId, PublicationDTO publicationDTO);
 
+    public PublicationDTO createPublication(Long userId, PublicationDTO publicationDTO);
     public PublicationResponse getAllPublications(int page, int size, String sortBy, String sortDir);
 
     public PublicationDTO getPublicationById(long id);

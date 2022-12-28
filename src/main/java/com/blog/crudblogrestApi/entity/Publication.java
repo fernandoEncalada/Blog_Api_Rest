@@ -1,8 +1,10 @@
 package com.blog.crudblogrestApi.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +25,10 @@ public class Publication {
     @Column(name="content", nullable = false)
     private String content;
 
+    @Column(name = "created_at", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
+
     @JsonBackReference
     @OneToMany(mappedBy = "publication")
     private Set<Comment> comments = new HashSet<>();
@@ -31,17 +37,22 @@ public class Publication {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     public Publication() {
         super();
     }
 
-    public Publication(Long id, String title, String description, String content, User user) {
+    public Publication(Long id, String title, String description, String content, Date createdAt, User user) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.content = content;
         this.user = user;
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -76,6 +87,14 @@ public class Publication {
         this.content = content;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Set<Comment> getComments() {
         return comments;
     }
@@ -90,5 +109,18 @@ public class Publication {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @PrePersist
+    private void prePersistDate(){
+        setCreatedAt(new Date());
     }
 }

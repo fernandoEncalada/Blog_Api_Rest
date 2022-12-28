@@ -1,5 +1,8 @@
 package com.blog.crudblogrestApi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,14 +18,15 @@ public class Category {
     @Column(length = 20)
     private String name;
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "category_id")
+//    @JsonBackReference
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "category")
 //    private Set<Publication> publications = new HashSet<>();
 
     public Category() {
     }
 
-    public Category(Long id, String name, Set<Publication> publications) {
+    public Category(Long id, String name) {
         this.id = id;
         this.name = name;
 //        this.publications = publications;
@@ -30,10 +34,6 @@ public class Category {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

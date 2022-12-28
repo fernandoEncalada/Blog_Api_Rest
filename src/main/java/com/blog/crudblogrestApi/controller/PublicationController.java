@@ -7,12 +7,13 @@ import com.blog.crudblogrestApi.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/publications")
 public class PublicationController {
@@ -25,12 +26,15 @@ public class PublicationController {
     @PostMapping("/{userId}")
     public ResponseEntity<PublicationDTO> savePublication(
             @PathVariable(name = "userId") long userId,
+//            @RequestParam(name = "category_id") long categoryId,
             @Valid
             @RequestBody PublicationDTO publicationDTO){
+        //return new ResponseEntity<>(publicationService.createPublication(userId,categoryId, publicationDTO), HttpStatus.CREATED);
         return new ResponseEntity<>(publicationService.createPublication(userId, publicationDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
+    @CrossOrigin
     public PublicationResponse getPublications(
             @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE, required = false) int page,
             @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_SIZE, required = false) int size,

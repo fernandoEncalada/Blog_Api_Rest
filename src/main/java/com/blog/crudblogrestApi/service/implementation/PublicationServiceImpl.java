@@ -2,9 +2,11 @@ package com.blog.crudblogrestApi.service.implementation;
 
 import com.blog.crudblogrestApi.dto.PublicationDTO;
 import com.blog.crudblogrestApi.dto.PublicationResponse;
+import com.blog.crudblogrestApi.entity.Category;
 import com.blog.crudblogrestApi.entity.Publication;
 import com.blog.crudblogrestApi.entity.User;
 import com.blog.crudblogrestApi.exceptions.ResourceNotFoundException;
+import com.blog.crudblogrestApi.repository.CategoryRepository;
 import com.blog.crudblogrestApi.repository.PublicationRepository;
 import com.blog.crudblogrestApi.repository.UserRepository;
 import com.blog.crudblogrestApi.service.PublicationService;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,12 +34,20 @@ public class PublicationServiceImpl implements PublicationService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
+    @Transactional
     public PublicationDTO createPublication(Long userId, PublicationDTO publicationDTO) {
         // Convert dto to entity
         Publication publication = mapperEntity(publicationDTO);
         User user = userRepository.findById(userId).orElse(null);
         publication.setUser(user);
+
+
+        Category category = categoryRepository.findById(publicationDTO.getCategoryId()).orElse(null);
+        publication.setCategory(category);
 
         Publication newPublication = publicationRepository.save(publication);
 
@@ -47,6 +58,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PublicationResponse getAllPublications(int page, int size, String sortBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -70,12 +82,14 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PublicationDTO getPublicationById(long id) {
         Publication publication = publicationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
         return mapperDTO(publication);
     }
 
     @Override
+    @Transactional
     public PublicationDTO updatePublication(PublicationDTO publicationDTO, long id) {
         Publication publication = publicationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 
@@ -88,6 +102,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    @Transactional
     public void deletePublication(long id) {
         Publication publication = publicationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));

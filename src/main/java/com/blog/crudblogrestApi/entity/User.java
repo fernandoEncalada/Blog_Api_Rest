@@ -30,9 +30,9 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "user")
-    private Set<Publication> publications = new HashSet<>();
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "user")
+//    private Set<Publication> publications = new HashSet<>();
 
     public User() {
     }
@@ -98,11 +98,11 @@ public class User {
         this.createAt = createAt;
     }
 
-    public Set<Publication> getPublications() {
-        return publications;
-    }
-
-    public void setPublications(Set<Publication> publications) {
-        this.publications = publications;
-    }
+//    public Set<Publication> getPublications() {
+//        return publications;
+//    }
+//
+//    public void setPublications(Set<Publication> publications) {
+//        this.publications = publications;
+//    }
 }

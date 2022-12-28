@@ -15,15 +15,15 @@ public class PublicationDTO {
     private String title;
 
     @NotEmpty
-    @Size(min = 10, message = "The description of the publication must have least 10 characters")
+    @Size(min = 5, message = "The description of the publication must have least 10 characters")
     private String description;
 
     @NotEmpty
     private String content;
 
-    private Set<Comment> comments;
+//    private Long userId;
 
-    private Long userId;
+    private Long categoryId;
 
     public PublicationDTO() {
         super();
@@ -61,19 +61,20 @@ public class PublicationDTO {
         this.content = content;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
+
+//    public Long getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Long userId) {
+//        this.userId = userId;
+//    }
+
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }
