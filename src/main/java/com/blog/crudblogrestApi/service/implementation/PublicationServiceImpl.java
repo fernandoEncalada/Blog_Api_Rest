@@ -46,7 +46,8 @@ public class PublicationServiceImpl implements PublicationService {
         publication.setUser(user);
 
 
-        Category category = categoryRepository.findById(publicationDTO.getCategoryId()).orElse(null);
+//        Category category = categoryRepository.findById(publicationDTO.getCategoryId()).orElse(null);
+        Category category = categoryRepository.findById(publicationDTO.getCategory().getId()).orElse(null);
         publication.setCategory(category);
 
         Publication newPublication = publicationRepository.save(publication);
@@ -96,6 +97,9 @@ public class PublicationServiceImpl implements PublicationService {
         publication.setTitle(publicationDTO.getTitle());
         publication.setDescription(publicationDTO.getDescription());
         publication.setContent(publicationDTO.getContent());
+//        Category category = categoryRepository.findById(publicationDTO.getCategoryId()).orElse(null);
+        Category category = categoryRepository.findById(publicationDTO.getCategory().getId()).orElse(null);
+        publication.setCategory(category);
 
         Publication publicationUpdated = publicationRepository.save(publication);
         return mapperDTO(publicationUpdated);

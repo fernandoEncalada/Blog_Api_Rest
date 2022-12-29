@@ -37,8 +37,8 @@ public class Publication {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 

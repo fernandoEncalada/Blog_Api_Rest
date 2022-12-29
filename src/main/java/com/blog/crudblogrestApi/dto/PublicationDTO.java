@@ -1,5 +1,6 @@
 package com.blog.crudblogrestApi.dto;
 
+import com.blog.crudblogrestApi.entity.Category;
 import com.blog.crudblogrestApi.entity.Comment;
 
 import javax.validation.constraints.NotEmpty;
@@ -23,7 +24,8 @@ public class PublicationDTO {
 
 //    private Long userId;
 
-    private Long categoryId;
+//    private Long categoryId;
+    private Category category;
 
     public PublicationDTO() {
         super();
@@ -70,11 +72,19 @@ public class PublicationDTO {
 //        this.userId = userId;
 //    }
 
-    public Long getCategoryId() {
-        return categoryId;
+//    public Long getCategoryId() {
+//        return categoryId;
+//    }
+//
+//    public void setCategoryId(Long categoryId) {
+//        this.categoryId = categoryId;
+//    }
+
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
