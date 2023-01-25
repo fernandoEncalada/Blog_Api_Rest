@@ -5,6 +5,7 @@ import com.blog.crudblogrestApi.entity.Comment;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.Set;
 
 public class PublicationDTO {
@@ -21,6 +22,8 @@ public class PublicationDTO {
 
     @NotEmpty
     private String content;
+
+    private Date createdAt;
 
 //    private Long userId;
 
@@ -63,6 +66,13 @@ public class PublicationDTO {
         this.content = content;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
 //    public Long getUserId() {
 //        return userId;
