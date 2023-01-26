@@ -29,6 +29,9 @@ public class Publication {
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 
+    @Column(name="picture")
+    private String picture;
+
     @JsonBackReference
     @OneToMany(mappedBy = "publication")
     private Set<Comment> comments = new HashSet<>();
@@ -46,13 +49,14 @@ public class Publication {
         super();
     }
 
-    public Publication(Long id, String title, String description, String content, Date createdAt, User user) {
+    public Publication(Long id, String title, String description, String content, Date createdAt, User user, String picture) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.content = content;
         this.user = user;
         this.createdAt = createdAt;
+        this.picture = picture;
     }
 
     public Long getId() {
@@ -117,6 +121,14 @@ public class Publication {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     @PrePersist
