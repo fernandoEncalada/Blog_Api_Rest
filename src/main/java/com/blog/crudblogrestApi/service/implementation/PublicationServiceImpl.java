@@ -64,7 +64,6 @@ public class PublicationServiceImpl implements PublicationService {
 
         Page<Publication> publications = publicationRepository.findAll(pageable);
 
-        List<Publication> publicationList = publications.getContent();
         List<PublicationDTO> content = publications.stream().map(publication -> mapperDTO(publication)).collect(Collectors.toList());
 
         PublicationResponse publicationResponse = new PublicationResponse();
@@ -93,11 +92,10 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 
         publication.setTitle(publicationDTO.getTitle());
-        publication.setDescription(publicationDTO.getDescription());
         publication.setContent(publicationDTO.getContent());
         publication.setPicture(publicationDTO.getPicture());
-//        Category category = categoryRepository.findById(publicationDTO.getCategoryId()).orElse(null);
-        Category category = categoryRepository.findById(publicationDTO.getCategory().getId()).orElse(null);
+        System.out.println(publicationDTO.getCategoryId());
+        Category category = categoryRepository.findById(publicationDTO.getCategoryId()).orElse(null);
         publication.setCategory(category);
 
         Publication publicationUpdated = publicationRepository.save(publication);

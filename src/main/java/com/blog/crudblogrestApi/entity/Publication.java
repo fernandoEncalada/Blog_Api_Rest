@@ -19,9 +19,6 @@ public class Publication {
     @Column(name="title", nullable = false)
     private String title;
 
-    @Column(name="description", nullable = false)
-    private String description;
-
     @Column(name="content", nullable = false)
     private String content;
 
@@ -49,10 +46,9 @@ public class Publication {
         super();
     }
 
-    public Publication(Long id, String title, String description, String content, Date createdAt, User user, String picture) {
+    public Publication(Long id, String title, String content, Date createdAt, User user, String picture) {
         this.id = id;
         this.title = title;
-        this.description = description;
         this.content = content;
         this.user = user;
         this.createdAt = createdAt;
@@ -73,14 +69,6 @@ public class Publication {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getContent() {

@@ -17,18 +17,11 @@ public class PublicationDTO {
     private String title;
 
     @NotEmpty
-    @Size(min = 5, message = "The description of the publication must have least 10 characters")
-    private String description;
-
-    @NotEmpty
     private String content;
 
     private String picture;
 
     private Date createdAt;
-
-//    private Long userId;
-
     private Long categoryId;
     private Category category;
 
@@ -52,14 +45,6 @@ public class PublicationDTO {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getContent() {
         return content;
     }
@@ -75,14 +60,6 @@ public class PublicationDTO {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
-//    public Long getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(Long userId) {
-//        this.userId = userId;
-//    }
 
     public Long getCategoryId() {
         return categoryId;
