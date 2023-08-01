@@ -1,7 +1,10 @@
 package com.blog.crudblogrestApi.controller;
 
 import com.blog.crudblogrestApi.dto.PublicationDTO;
+import com.blog.crudblogrestApi.entity.Rol;
 import com.blog.crudblogrestApi.entity.User;
+import com.blog.crudblogrestApi.entity.UserRol;
+import com.blog.crudblogrestApi.repository.RolRepository;
 import com.blog.crudblogrestApi.service.UserService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +13,18 @@ import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
 
 //    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping

@@ -1,18 +1,20 @@
 package com.blog.crudblogrestApi.service;
 
 import com.blog.crudblogrestApi.entity.User;
+import com.blog.crudblogrestApi.entity.UserRol;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
 
-    public User createUser(User user);
+    User createUser(User user);
 
-    public List<User> getUsers();
+    List<User> getUsers();
 
-    public User getUserById(Long id);
+    User getUserById(Long id);
 
-    public User updateUser(User user, Long id);
+    User updateUser(User user, Long id);
 
-    public void deleteUser(Long id);
+    void deleteUser(Long id);
 }

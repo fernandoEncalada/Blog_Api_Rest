@@ -87,6 +87,23 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public List<PublicationDTO> getPublicationsByCategory(Long id) {
+        List<Publication> publications = publicationRepository.findAll();
+        List<PublicationDTO> publicationsMapped = publications.stream().map(this::mapToDto).collect(Collectors.toList());
+        return publicationsMapped.stream().filter(pm -> pm.getCategoryId().equals(id)).collect(Collectors.toList());
+    }
+
+    private PublicationDTO mapToDto(Publication publication) {
+        PublicationDTO publicationDTO = new PublicationDTO();
+        publicationDTO.setId(publication.getId());
+        publicationDTO.setContent(publication.getContent());
+        publicationDTO.setPicture(publication.getPicture());
+        publicationDTO.setTitle(publication.getTitle());
+        publicationDTO.setCategoryId(publication.getCategory().getId());
+        return publicationDTO;
+    }
+
+    @Override
     @Transactional
     public PublicationDTO updatePublication(PublicationDTO publicationDTO, long id) {
         Publication publication = publicationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));

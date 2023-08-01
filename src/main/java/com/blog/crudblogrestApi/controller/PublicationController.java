@@ -49,6 +49,11 @@ public class PublicationController {
         return ResponseEntity.ok(publicationService.getPublicationById(id));
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<PublicationDTO>> getPublicationsByCategory(@PathVariable(name = "id") Long id) {
+        return ResponseEntity.ok(publicationService.getPublicationsByCategory(id));
+    }
+
 //    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<PublicationDTO> updatePublication(@Valid @RequestBody PublicationDTO publicationDTO, @PathVariable(name = "id") long id){

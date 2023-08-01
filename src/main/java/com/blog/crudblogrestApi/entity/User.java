@@ -1,6 +1,7 @@
 package com.blog.crudblogrestApi.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,10 +18,11 @@ public class User {
 
     @Column(length = 50)
     private String name;
-
     @Column(name = "last_name", length = 50)
     private String lastName;
 
+    @Column(name = "username", length = 50)
+    private String username;
     @Column(unique = true, length = 60)
     private String email;
 
@@ -29,6 +31,9 @@ public class User {
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<UserRol> userRols = new HashSet<>();
 
 //    @JsonBackReference
 //    @OneToMany(mappedBy = "user")
@@ -46,7 +51,7 @@ public class User {
     }
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         createAt = new Date();
     }
 
@@ -98,7 +103,23 @@ public class User {
         this.createAt = createAt;
     }
 
-//    public Set<Publication> getPublications() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Set<UserRol> getUserRols() {
+        return userRols;
+    }
+
+    public void setUserRols(Set<UserRol> userRols) {
+        this.userRols = userRols;
+    }
+
+    //    public Set<Publication> getPublications() {
 //        return publications;
 //    }
 //
