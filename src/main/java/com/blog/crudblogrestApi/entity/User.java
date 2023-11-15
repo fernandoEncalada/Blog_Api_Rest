@@ -1,16 +1,24 @@
 package com.blog.crudblogrestApi.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.tools.javac.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = {"username"})})
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,112 +26,54 @@ public class User {
 
     @Column(length = 50)
     private String name;
+
     @Column(name = "last_name", length = 50)
     private String lastName;
 
-    @Column(name = "username", length = 50)
+    @Column(name = "username", length = 50, nullable = false)
     private String username;
+
     @Column(unique = true, length = 60)
     private String email;
 
+    @Column(length = 10, nullable = false)
     private String password;
 
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
-    private Set<UserRol> userRols = new HashSet<>();
 
-//    @JsonBackReference
-//    @OneToMany(mappedBy = "user")
-//    private Set<Publication> publications = new HashSet<>();
-
-    public User() {
-    }
-
-    public User(String name, String lastName, String email, String password, Date createAt) {
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.createAt = createAt;
-    }
+    @Enumerated(EnumType.STRING)
+    Role role;
 
     @PrePersist
     public void prePersist() {
         createAt = new Date();
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public String getLastName() {
-        return lastName;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Set<UserRol> getUserRols() {
-        return userRols;
-    }
-
-    public void setUserRols(Set<UserRol> userRols) {
-        this.userRols = userRols;
-    }
-
-    //    public Set<Publication> getPublications() {
-//        return publications;
-//    }
-//
-//    public void setPublications(Set<Publication> publications) {
-//        this.publications = publications;
-//    }
 }

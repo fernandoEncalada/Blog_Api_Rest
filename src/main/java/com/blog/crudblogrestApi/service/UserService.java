@@ -1,10 +1,8 @@
 package com.blog.crudblogrestApi.service;
 
 import com.blog.crudblogrestApi.entity.User;
-import com.blog.crudblogrestApi.entity.UserRol;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserService {
 
