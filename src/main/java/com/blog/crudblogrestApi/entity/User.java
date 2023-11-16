@@ -1,6 +1,5 @@
 package com.blog.crudblogrestApi.entity;
 
-import com.sun.tools.javac.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor

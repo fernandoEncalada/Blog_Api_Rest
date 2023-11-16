@@ -2,7 +2,6 @@ package com.blog.crudblogrestApi.service.implementation;
 
 import com.blog.crudblogrestApi.entity.User;
 import com.blog.crudblogrestApi.exceptions.ResourceNotFoundException;
-import com.blog.crudblogrestApi.repository.RolRepository;
 import com.blog.crudblogrestApi.repository.UserRepository;
 import com.blog.crudblogrestApi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    private RolRepository rolRepository;
 
     @Override
     public User createUser(User user){
