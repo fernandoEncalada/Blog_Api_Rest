@@ -1,5 +1,7 @@
 package com.blog.crudblogrestApi.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,8 @@ public class Backup {
     private String dbUrl;
 
     private boolean backupExecutedToday = false;
+
+    private Logger logger = LoggerFactory.getLogger(Backup.class);
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 24) // Run every 24 hours
     public void performDailyBackup() {
@@ -50,7 +54,7 @@ public class Backup {
             processBuilder.start();
             // Add appropriate error handling and logging here
         } catch (Exception e) {
-            e.printStackTrace(); // Handle exceptions appropriately
+            logger.error(e.getMessage());
         }
     }
 
